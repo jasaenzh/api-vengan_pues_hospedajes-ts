@@ -2,12 +2,26 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Layout from '../layout/loginLayout';
 import Link from 'next/link';
+import Image from 'next/image'
+import styles from '../styles/Form.module.css'
+import { signIn, signOut } from 'next-auth/react'
+import { useState } from 'react';
 
 interface LoginProps {
     // Propiedades opcionales del componente Login
 }
 
 const Login: NextPage<LoginProps> = () => {
+
+    const [show, setShow] = useState(false);
+
+    // Funcion para logearnos con Google
+    async function handleGoogleSignIn() {
+        signIn('google', { callbackUrl: "http://localhost:3000" })
+    }
+
+
+
     // Contenido del componente Login
     return (
         <Layout>
@@ -17,79 +31,48 @@ const Login: NextPage<LoginProps> = () => {
             <section className='w-3/4 mx-auto flex flex-col gap-10'>
                 <div className='title'>
                     <h1 className=' text-gray-800 text-4xl font-bold py-4'>Iniciar Sesion</h1>
-                    <p className='w-3/4 mx-auto text-gray-500'>Ingresa tus credenciales</p>
+                    <p className='w-3/4 mx-auto text-gray-200'>Ingresa tus credenciales</p>
                 </div>
 
 
                 {/* Formulario */}
-                <form className="w-full max-w-sm gap-5">
-                    {/*  Div de Email */}
-                    <div className="md:flex md:items-center mb-6">
-                        <div className="md:w-1/3">
-                            <label
-                                className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                                htmlFor="inline-full-name">
-                                Email
-                            </label>
-                        </div>
-                        <div className="md:w-2/3">
-                            <input
-                                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                                id="inline-full-name"
-                                type="email"
-                                name='email'
-                                placeholder="email@mail.com" />
-                        </div>
+                <form className="flex flex-col gap-5">
+                    <div className={styles.input_group}>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            className={styles.input_text}
+                        />
                     </div>
-
-                    {/* Div de Contraseña */}
-                    <div className="md:flex md:items-center mb-6">
-                        <div className="md:w-1/3">
-                            <label
-                                className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                                htmlFor="inline-password">
-                                Contraseña
-                            </label>
-                        </div>
-                        <div className="md:w-2/3">
-                            <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                                id="inline-password"
-                                type="password"
-                                name="password"
-                                placeholder="******************" />
-                        </div>
+                    <div className={styles.input_group}>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            className={styles.input_text}
+                        />
                     </div>
-
-                    {/* Bottones Inicio se sesion con credenciales, Google y Github */}
-                    {/* Credenciales */}
-                    <div className="md:flex md:items-center mb-6">
-                        <div className="md:w-1/3"></div>
-                        <div className="md:w-2/3">
-                            <button
-                                className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                                type="button">
-                                Iniciar sesion
-                            </button>
-                        </div>
+                    {/* Login Bottons */}
+                    <div className="input-button">
+                        <button type="submit" className={styles.button}>
+                            Iniciar sesion
+                        </button>
                     </div>
-
-                    {/* Google */}
-                    <div className="md:flex md:items-center">
-                        <div className="md:w-1/3"></div>
-                        <div className="md:w-2/3">
-                            <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-                                Iniciar sesion con Google
-                            </button>
-                        </div>
-                    </div>
-
+                    <button
+                        type="button"
+                        className={styles.button_custom}
+                        onClick={handleGoogleSignIn}
+                    >
+                        Iniciar sesion con Google <Image src={'/asset/google.svg'} alt='Google' width="20" height={20}></Image>
+                    </button>
                 </form>
 
                 {/* Link para registrarse  */}
-                <p className="text-center text-gray-500">
+                <p className="text-center text-gray-400">
                     No tienes una cuenta?
                     <Link href={'/register'}>
-                        <span className="text-purple-600"> Registrarse</span>
+                        <span className=" text-blue-700"> Registrarse</span>
                     </Link>
                 </p>
 
