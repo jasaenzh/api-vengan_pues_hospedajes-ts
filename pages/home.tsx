@@ -18,7 +18,7 @@ const Home: NextPage<HomeProps> = ({ session }) => {
 
     return (
         <main>
-            <h3 className="text-4xl font-bold">Bienvenido al inicio</h3>
+            <h3 className="text-4xl font-bold">Bienvenido a Vengan Pues</h3>
 
             {session && (
                 <div className='details'>
