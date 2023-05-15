@@ -18,7 +18,6 @@ const Index: NextPage<IndexProps> = ({ session }) => {
   // Aca validamos si el usuario esta logueado o no
   const { data: userSession } = useSession();
 
-
   // Depende de si esta logueado o no, se muestra el componente User o Guest
   return (
     <div className={styles.container}>
